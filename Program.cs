@@ -14,8 +14,8 @@ namespace Stage1
             city:"Bogota", country:"Colombia");
 
             // Course ctor does not ask for parameters to create an object, but we can give the parameters in between {}.
-                        
-            var courseArray = new Course[3]
+
+            Course[] courseArray =
             {
                 new Course() {name = "101"},
                 new Course() {name = "201"},
