@@ -1,0 +1,13 @@
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.exe
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.deps.json
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.runtimeconfig.json
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.runtimeconfig.dev.json
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.dll
+C:\Users\fredd\Documents\Code\c#\Stage1\bin\Debug\netcoreapp3.1\Stage1.pdb
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.csprojAssemblyReference.cache
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.AssemblyInfoInputs.cache
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.AssemblyInfo.cs
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.csproj.CoreCompileInputs.cache
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.dll
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.pdb
+C:\Users\fredd\Documents\Code\c#\Stage1\obj\Debug\netcoreapp3.1\Stage1.genruntimeconfig.cache
