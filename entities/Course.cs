@@ -20,12 +20,12 @@ namespace CoreSchool.entities
         // A static function does not need an object to be used. It can be accessed by
         // Course.print_courses()
 
-        public static void print_courses(Course[] courseArray)
-        {
-            foreach (var course in courseArray)
-            {
-                System.Console.WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
-            }
-        }
+        // public static void print_courses(Course[] courseArray)
+        // {
+        //     foreach (var course in courseArray)
+        //     {
+        //         System.Console.WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
+        //     }
+        // }
     }
 }

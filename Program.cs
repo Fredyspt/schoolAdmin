@@ -15,16 +15,26 @@ namespace Stage1
 
             // Course ctor does not ask for parameters to create an object, but we can give the parameters in between {}.
 
-            Course[] courseArray =
+            mySchool.courses = new Course[]
             {
                 new Course() {name = "101"},
                 new Course() {name = "201"},
                 new Course() {name = "301"}
             };
  
-            Console.WriteLine(mySchool);
+            print_school_courses(mySchool);
+        }
+
+        public static void print_school_courses(School school)
+        {
             System.Console.WriteLine(new String('=', 20));
-            Course.print_courses(courseArray);
+            System.Console.WriteLine("School courses");
+            System.Console.WriteLine(new String('=', 20));
+
+            foreach (var course in school.courses)
+            {
+                System.Console.WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
+            }
         }
     }
 }

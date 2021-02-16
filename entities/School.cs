@@ -17,6 +17,7 @@ namespace CoreSchool.entities
         public string country { get; set; }
         public string city { get; set; }
         public SchoolTypes schoolType { get; set; }
+        public Course[] courses { get; set; }
 
         public School(string name, int foundingYear)
         {
@@ -44,6 +45,6 @@ namespace CoreSchool.entities
         // With $ we can access variables to use them on a string
 
         public override string ToString() => $"Name: \"{name}\", School type: {schoolType} {System.Environment.NewLine}Country: {country}, City: {city}";
-        
+
     }
 }
