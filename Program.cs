@@ -1,5 +1,6 @@
 ﻿using System;
 using CoreSchool.entities;
+using static System.Console;
 
 namespace Stage1
 {
@@ -21,19 +22,21 @@ namespace Stage1
                 new Course() {name = "201"},
                 new Course() {name = "301"}
             };
- 
+
             print_school_courses(mySchool);
         }
 
         public static void print_school_courses(School school)
         {
-            System.Console.WriteLine(new String('=', 20));
-            System.Console.WriteLine("School courses");
-            System.Console.WriteLine(new String('=', 20));
+            WriteLine(new String('=', 20));
+            WriteLine("School courses");
+            WriteLine(new String('=', 20));
 
+            // ? verifies the object (if it is != null) before verifying the attribute.
+            if(school?.courses == null) return;
             foreach (var course in school.courses)
             {
-                System.Console.WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
+                WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
             }
         }
     }
