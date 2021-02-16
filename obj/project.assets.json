@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\fredd\\Documents\\Code\\c#\\Stage1\\Stage1.csproj",
+      "projectUniqueName": "C:\\Users\\fredd\\Documents\\Code\\c#\\schoolAdmin\\Stage1.csproj",
       "projectName": "Stage1",
-      "projectPath": "C:\\Users\\fredd\\Documents\\Code\\c#\\Stage1\\Stage1.csproj",
+      "projectPath": "C:\\Users\\fredd\\Documents\\Code\\c#\\schoolAdmin\\Stage1.csproj",
       "packagesPath": "C:\\Users\\fredd\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\fredd\\Documents\\Code\\c#\\Stage1\\obj\\",
+      "outputPath": "C:\\Users\\fredd\\Documents\\Code\\c#\\schoolAdmin\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\fredd\\AppData\\Roaming\\NuGet\\NuGet.Config"
