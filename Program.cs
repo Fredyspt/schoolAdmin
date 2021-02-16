@@ -43,17 +43,14 @@ namespace Stage1
 
             print_school_courses(mySchool);
 
-            // Predicate only admits a bool function with a course object as a parameter.
-            // It allows to use a function as a parameter.
-            Predicate<Course> algorithm = PredicateFunction;
-            mySchool.courses.RemoveAll(PredicateFunction);
-            
-            print_school_courses(mySchool);
-        }
+            // This structure can be used when there are more parameters to compare
+            // mySchool.courses.RemoveAll(delegate(Course courseToRemove)
+            // {return courseToRemove.name == "501";});
 
-        private static bool PredicateFunction(Course courseObj)
-        {
-            return courseObj.name == "501";
+            // Shorter version using lambda expressions            
+            mySchool.courses.RemoveAll((courseToRemove) => courseToRemove.name == "501");
+
+            print_school_courses(mySchool);
         }
 
         public static void print_school_courses(School school)
