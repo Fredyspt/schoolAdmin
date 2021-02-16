@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 
 namespace CoreSchool.entities
 {
-    class School
+    public class School
     {
         // This is a way to declare getters and setters to manipulate a private attribute.
         string name;
@@ -20,6 +21,8 @@ namespace CoreSchool.entities
         public string city { get; set; }
         public SchoolTypes schoolType { get; set; }
         public List<Course> courses { get; set; }
+
+        public string uniqueID { get; private set; } = Guid.NewGuid().ToString();
 
         public School(string name, int foundingYear)
         {
