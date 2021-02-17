@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreSchool.entities;
 
 namespace CoreSchool
@@ -19,6 +21,51 @@ namespace CoreSchool
             School = new School("Platzi Academy", 2012, SchoolTypes.HighSchool,
             city:"Bogota", country:"Colombia");
 
+            LoadCourses();
+            LoadSubjects();
+
+            
+            
+            LoadExams();
+            
+        }
+
+        private void LoadExams()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoadSubjects()
+        {
+            foreach (var course in School.courses)
+            {
+                var subjectList = new List<Subject>(){
+                    new Subject{name = "Math"},
+                    new Subject{name = "Physics"},
+                    new Subject{name = "Language"},
+                    new Subject{name = "P.E."},
+                    new Subject{name = "Biology"}
+                };
+                course.subjects = subjectList;
+            }
+        }
+
+        private List<Student> createStudents(int numberOfStudents)
+        {
+            string[] firstName = {"Fredy", "Anne", "Israel", "Fernando", "Igor", "Charly", "Travis"};
+            string[] middleName = {"Max", "Lauren", "Dixie", "Daniel", "Louis", "Harry"};
+            string[] lastName = {"Wick", "Hernandez", "Bezos", "Musk", "Evans", "Parker"};
+
+            var studentList = from fN in firstName
+                              from mN in middleName
+                              from lN in lastName
+                              select new Student{name = $"{fN} {mN} {lN}"};
+
+            return studentList.OrderBy((student) => student.uniqueID).Take(numberOfStudents).ToList();
+        }
+
+        private void LoadCourses()
+        {
             // Course ctor does not ask for parameters to create an object, but we can give the parameters in between {}.
             // This list only uses Course-type objects
             School.courses = new List<Course>()
@@ -30,7 +77,21 @@ namespace CoreSchool
                 new Course() {name = "501", workShift = WorkShift.Evening},
             };
 
-            /*
+            // This generates a random number between 5 and 20
+            Random random = new Random();
+
+            foreach (var course in School.courses)
+            {
+                int randomNumber = random.Next(5,20);
+                course.students = createStudents(randomNumber);
+            }
+
+            
+        }
+    }
+}
+
+/*
             =============== Ways to add more items to a generic list ========================
             =================================================================================
 
@@ -65,6 +126,3 @@ namespace CoreSchool
             mySchool.courses.RemoveAll((courseToRemove) => courseToRemove.name == "501");
             
             */
-        }
-    }
-}
