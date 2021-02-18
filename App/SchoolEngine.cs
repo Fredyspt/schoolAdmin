@@ -5,7 +5,8 @@ using CoreSchool.entities;
 
 namespace CoreSchool
 {
-    public class SchoolEngine
+    // Sealed doesn't let any class to inherit from SchoolEngine, only allows to create objects.
+    public sealed class SchoolEngine
     {
         public School School { get; set; }
 
@@ -18,7 +19,7 @@ namespace CoreSchool
         {
             // By setting optional parameters in the ctor, we can skip setting them, or just set one of them, 
             // or set them in a different order, in this case, country was supposed to be set before city.
-            School = new School("Platzi Academy", 2012, SchoolTypes.HighSchool,
+            School = new School("Platzi Academy", 2012, SchoolType.HighSchool,
             city:"Bogota", country:"Colombia");
 
             LoadCourses();

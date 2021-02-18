@@ -3,26 +3,16 @@ using System.Collections.Generic;
 
 namespace CoreSchool.entities
 {
-    public class School
+    public class School:BaseSchoolObject
     {
-        // This is a way to declare getters and setters to manipulate a private attribute.
-        string name;
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value.ToUpper(); }
-        }
-
         //This is an easier way of declaring getters and setters without the need of 2 different names for the attribute.
 
         public int foundingYear {get; set;}
         public string country { get; set; }
         public string city { get; set; }
-        public SchoolTypes schoolType { get; set; }
+        public SchoolType schoolType { get; set; }
         public List<Course> courses { get; set; }
 
-        public string uniqueID { get; private set; } = Guid.NewGuid().ToString();
 
         public School(string name, int foundingYear)
         {
@@ -33,7 +23,7 @@ namespace CoreSchool.entities
         // We can create another ctor, but in this case, we can ask for more data to create the object.
         // By initializing country and city with = "", their default value will be not established, 
         // which allows us to create the object without typing a country and city if we don't want to.
-        public School(string name, int foundingYear, SchoolTypes schoolType, string country = "", string city = "")
+        public School(string name, int foundingYear, SchoolType schoolType, string country = "", string city = "")
         {
             (this.name, this.foundingYear) = (name, foundingYear);
             this.schoolType = schoolType;
