@@ -23,16 +23,39 @@ namespace CoreSchool
 
             LoadCourses();
             LoadSubjects();
-
-            
             
             LoadExams();
+
             
         }
 
         private void LoadExams()
         {
-            throw new NotImplementedException();
+            
+            foreach (var course in School.courses)
+            {
+                foreach (var subject in course.subjects)
+                {
+                    foreach (var student in course.students)
+                    {
+                        Random random = new Random();
+                        for(int i = 0; i < 5; i++)
+                        {
+                            var exam = new Exam(){
+                                    examSubject = subject,
+                                    name = $"{subject.name} Quiz {i+1}",
+                                    testedStudent = student,
+                                    grade = (double)(random.NextDouble()*5)
+                                };
+                            // Add each exam to the student
+                            student.exams.Add(exam);
+
+                            // Add each exam to the subject to collect all the subject's exams
+                            subject.exams.Add(exam);
+                        }
+                    }
+                }
+            }
         }
 
         private void LoadSubjects()
@@ -56,11 +79,15 @@ namespace CoreSchool
             string[] middleName = {"Max", "Lauren", "Dixie", "Daniel", "Louis", "Harry"};
             string[] lastName = {"Wick", "Hernandez", "Bezos", "Musk", "Evans", "Parker"};
 
+            // Create query
+            // fN will be the tmp name for all firstName's
+            // For every firstName, select will create a new Student and will store it into studentList
             var studentList = from fN in firstName
                               from mN in middleName
                               from lN in lastName
                               select new Student{name = $"{fN} {mN} {lN}"};
 
+            // Sorts students by ID then takes a the desired number of students and converts them to a list
             return studentList.OrderBy((student) => student.uniqueID).Take(numberOfStudents).ToList();
         }
 

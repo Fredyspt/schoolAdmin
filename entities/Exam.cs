@@ -6,9 +6,9 @@ namespace CoreSchool.entities
     {
         public string name { get; set; }
         public string uniqueID { get; private set; }
-        public Student student { get; set; }
-        public Exam exam { get; set; }
-        public float grade { get; set; }
+        public double grade { get; set; }
+        public Subject examSubject { get; set; }
+        public Student testedStudent { get; set; }
 
         public Exam() => uniqueID = Guid.NewGuid().ToString();
     }

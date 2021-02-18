@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CoreSchool.entities
 {
@@ -7,6 +8,11 @@ namespace CoreSchool.entities
         public string name { get; set; }
         public string uniqueID { get; private set; }
 
-        public Student() => uniqueID = Guid.NewGuid().ToString();
+        public List<Exam> exams { get; set; }
+
+        public Student(){
+            uniqueID = Guid.NewGuid().ToString();
+            exams = new List<Exam>();
+        }
     }
 }
