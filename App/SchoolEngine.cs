@@ -29,24 +29,40 @@ namespace CoreSchool
 
             
         }
-
-        public List<BaseSchoolObject> GetBaseSchoolObjects()
+        
+        // By setting all the parameters in the method's definition, they become optional parameters.
+        // Because they have a default value.
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            bool getExams = true, 
+            bool getStudents = true, 
+            bool getSubjects = true, 
+            bool getCourses = true)
         {
             var objectList = new List<BaseSchoolObject>();
             objectList.Add(School);
-            objectList.AddRange(School.courses);
+
+            if(getCourses)
+                objectList.AddRange(School.courses);
+
             foreach (Course course in School.courses)
             {
-                objectList.AddRange(course.subjects);
-                objectList.AddRange(course.students);
-                foreach (var subject in course.subjects)
+                if(getSubjects)
+                    objectList.AddRange(course.subjects);
+                if(getStudents)
+                    objectList.AddRange(course.students);
+
+                if(getExams)
                 {
-                    objectList.AddRange(subject.exams);
+                    foreach (var subject in course.subjects)
+                    {
+                        objectList.AddRange(subject.exams);
+                    }
                 }
             }
             return objectList;
         }
 
+        #region Data generation methods
         private void LoadExams()
         {
             
@@ -136,38 +152,42 @@ namespace CoreSchool
     }
 }
 
-/*
-            =============== Ways to add more items to a generic list ========================
-            =================================================================================
+        #endregion
 
-            School.courses.Add(new Course(){name = "102", workShift = WorkShift.Evening});
+        #region Comments
+        /*
+        =============== Ways to add more items to a generic list ========================
+        =================================================================================
 
-            var anotherCourseList = new List<Course>()
-            {
-                new Course() {name = "401", workShift = WorkShift.Morning},
-                new Course() {name = "501", workShift = WorkShift.Morning},
-                new Course() {name = "502", workShift = WorkShift.Evening}
-            };
+        School.courses.Add(new Course(){name = "102", workShift = WorkShift.Evening});
 
-            // Adding a list to another list
-            School.courses.AddRange(anotherCourseList);
-            */
+        var anotherCourseList = new List<Course>()
+        {
+            new Course() {name = "401", workShift = WorkShift.Morning},
+            new Course() {name = "501", workShift = WorkShift.Morning},
+            new Course() {name = "502", workShift = WorkShift.Evening}
+        };
 
-            /*
-            =============== Ways to remove items from a generic list ========================
-            =================================================================================
-            
-            Course tmp = new Course(){name = "101-Vacacional", workShift = WorkShift.Night};
-            School.courses.Add(tmp);
+        // Adding a list to another list
+        School.courses.AddRange(anotherCourseList);
+        */
 
-            // The framework removes the object whose HashCode matches the HashCode of the parameter inside Remove().
-            School.courses.Remove(tmp);
+        /*
+        =============== Ways to remove items from a generic list ========================
+        =================================================================================
+        
+        Course tmp = new Course(){name = "101-Vacacional", workShift = WorkShift.Night};
+        School.courses.Add(tmp);
 
-            // This structure can be used when there are more parameters to compare
-            mySchool.courses.RemoveAll(delegate(Course courseToRemove)
-            {return courseToRemove.name == "501";});
+        // The framework removes the object whose HashCode matches the HashCode of the parameter inside Remove().
+        School.courses.Remove(tmp);
 
-            // Shorter version using lambda expressions            
-            mySchool.courses.RemoveAll((courseToRemove) => courseToRemove.name == "501");
-            
-            */
+        // This structure can be used when there are more parameters to compare
+        mySchool.courses.RemoveAll(delegate(Course courseToRemove)
+        {return courseToRemove.name == "501";});
+
+        // Shorter version using lambda expressions            
+        mySchool.courses.RemoveAll((courseToRemove) => courseToRemove.name == "501");
+        
+        */
+        #endregion
