@@ -16,6 +16,7 @@ namespace CoreSchool
         
             print_school_courses(engine.School);
 
+            var objectList = engine.GetBaseSchoolObjects();
         }
 
         public static void print_school_courses(School school)

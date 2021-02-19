@@ -9,5 +9,10 @@ namespace CoreSchool.entities
         public string uniqueID { get; private set; }
 
         public BaseSchoolObject() => uniqueID = Guid.NewGuid().ToString();
+
+        public override string ToString()
+        {
+            return $"{name}, {uniqueID}";
+        }
     }
 }

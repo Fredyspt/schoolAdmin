@@ -30,6 +30,23 @@ namespace CoreSchool
             
         }
 
+        public List<BaseSchoolObject> GetBaseSchoolObjects()
+        {
+            var objectList = new List<BaseSchoolObject>();
+            objectList.Add(School);
+            objectList.AddRange(School.courses);
+            foreach (Course course in School.courses)
+            {
+                objectList.AddRange(course.subjects);
+                objectList.AddRange(course.students);
+                foreach (var subject in course.subjects)
+                {
+                    objectList.AddRange(subject.exams);
+                }
+            }
+            return objectList;
+        }
+
         private void LoadExams()
         {
             
