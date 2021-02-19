@@ -32,12 +32,13 @@ namespace CoreSchool
         
         // By setting all the parameters in the method's definition, they become optional parameters.
         // Because they have a default value.
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+        public (List<BaseSchoolObject>, int) GetBaseSchoolObjects(
             bool getExams = true, 
             bool getStudents = true, 
             bool getSubjects = true, 
             bool getCourses = true)
         {
+            int examnCount = 0;
             var objectList = new List<BaseSchoolObject>();
             objectList.Add(School);
 
@@ -56,10 +57,11 @@ namespace CoreSchool
                     foreach (var subject in course.subjects)
                     {
                         objectList.AddRange(subject.exams);
+                        examnCount += subject.exams.Count;
                     }
                 }
             }
-            return objectList;
+            return (objectList, examnCount);
         }
 
         #region Data generation methods
