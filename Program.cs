@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using CoreSchool.entities;
 using CoreSchool.Utilities;
 using static System.Console;
@@ -17,6 +18,13 @@ namespace CoreSchool
             print_school_courses(engine.School);
 
             var objectList = engine.GetBaseSchoolObjects();
+
+            //engine.School.ClearData();
+
+            // Search every obj of type IData, cast it into IData, and collect it.
+            var interfaceList = from obj in objectList
+                                where obj is IData
+                                select (IData) obj;
         }
 
         public static void print_school_courses(School school)

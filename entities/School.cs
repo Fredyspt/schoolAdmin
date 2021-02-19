@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using CoreSchool.Utilities;
 
 namespace CoreSchool.entities
 {
-    public class School:BaseSchoolObject
+    public class School:BaseSchoolObject, IData
     {
         //This is an easier way of declaring getters and setters without the need of 2 different names for the attribute.
 
@@ -41,5 +42,14 @@ namespace CoreSchool.entities
 
         public override string ToString() => $"Name: \"{name}\", School type: {schoolType} {System.Environment.NewLine}Country: {country}, City: {city}";
 
+        public void ClearData()
+        {
+            Printer.PrintTitle("Clearing school data...");
+            foreach(var course in courses)
+            {
+                course.ClearData();
+            }
+            Printer.PrintTitle($"School {name} cleared");
+        }
     }
 }
