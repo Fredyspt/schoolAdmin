@@ -17,21 +17,33 @@ namespace CoreSchool
         
             print_school_courses(engine.School);
 
-            // We must enter one output variable for each output parameter that we declared in the method.
-            int ignore = 0;
-            var objectList = engine.GetBaseSchoolObjects(
-                out int examCount,
-                out ignore, 
-                out ignore, 
-                out ignore
-            );
-
             //engine.School.ClearData();
 
-            // Search every obj of type IData, cast it into IData, and collect it.
-            var interfaceList = from obj in objectList
-                                where obj is IData
-                                select (IData) obj;
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            dictionary.Add(10, "Hola");
+            dictionary.Add(23, "Lorem Ipsum");
+
+            foreach (var keyValPair in dictionary)
+            {
+                WriteLine($"Key: {keyValPair.Key}, Value: {keyValPair.Value}");
+            }
+
+            Printer.PrintTitle("Search through dictionary");
+            WriteLine(dictionary[23]);
+
+            dictionary[0] = "SampleText";
+            WriteLine(dictionary[0]);
+
+            // We kan use any variable type as key value
+            // We can create a key, and we can replace its value afterwards
+            // like dictionary.Add(TKey, Value) but we cannot add another
+            // key with the same name, if we want to replace the key's 
+            // value, we must do this -> dictionary[TKey] = Value.
+            
+            var dictionary2 = new Dictionary<string, string>();
+            dictionary2["Moon"] = "Celestial body revolving around the earth";
+            WriteLine(dictionary2["Moon"]);
+
         }
 
         public static void print_school_courses(School school)

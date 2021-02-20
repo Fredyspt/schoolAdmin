@@ -34,7 +34,8 @@ namespace CoreSchool
         // using the method. This way, we can type only the default parameters without any 
         // output parameter, but if we want to type only 1 output parameter, we must create 
         // a different version of this method's overload.
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+
+        public IReadOnlyList<BaseSchoolObject> GetBaseSchoolObjects(
             bool getExams = true, 
             bool getStudents = true, 
             bool getSubjects = true, 
@@ -42,7 +43,7 @@ namespace CoreSchool
             {
                 return GetBaseSchoolObjects(out int ignore, out ignore, out ignore, out ignore);
             }
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+        public IReadOnlyList<BaseSchoolObject> GetBaseSchoolObjects(
             out int examCount,
             bool getExams = true, 
             bool getStudents = true, 
@@ -51,7 +52,7 @@ namespace CoreSchool
             {
                 return GetBaseSchoolObjects(out examCount, out int ignore, out ignore, out ignore);
             }
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+        public IReadOnlyList<BaseSchoolObject> GetBaseSchoolObjects(
             out int examCount,
             out int studentsCount,
             bool getExams = true, 
@@ -61,7 +62,7 @@ namespace CoreSchool
             {
                 return GetBaseSchoolObjects(out examCount, out studentsCount, out int ignore, out ignore);
             }
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+        public IReadOnlyList<BaseSchoolObject> GetBaseSchoolObjects(
             out int examCount,
             out int studentsCount,
             out int subjectsCount,
@@ -78,7 +79,12 @@ namespace CoreSchool
         // By setting all the parameters in the method's definition, they become optional parameters.
         // Because they have a default value.
         // All default parameters must be at the end of the parameters list
-        public List<BaseSchoolObject> GetBaseSchoolObjects(
+
+        // To prevent other developers from adding objects as they please to a list, we can define 
+        // the list as IReadOnlyList, and we must return the list with .AsReadOnly().
+        // When delivering lists for other developers to use, it's better to return a generic list,
+        // (IEnumerable, because it can be cast into anything they need) and as read only.
+        public IReadOnlyList<BaseSchoolObject> GetBaseSchoolObjects(
             out int examCount, 
             out int studentsCount, 
             out int subjectsCount, 
@@ -115,7 +121,7 @@ namespace CoreSchool
                     }
                 }
             }
-            return objectList;
+            return objectList.AsReadOnly();
         }
 
         #region Data generation methods
