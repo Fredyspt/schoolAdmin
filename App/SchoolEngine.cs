@@ -30,6 +30,51 @@ namespace CoreSchool
             
         }
         
+        // This is a non efficient way to avoid the need to write every output parameter when
+        // using the method. This way, we can type only the default parameters without any 
+        // output parameter, but if we want to type only 1 output parameter, we must create 
+        // a different version of this method's overload.
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            bool getExams = true, 
+            bool getStudents = true, 
+            bool getSubjects = true, 
+            bool getCourses = true)
+            {
+                return GetBaseSchoolObjects(out int ignore, out ignore, out ignore, out ignore);
+            }
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            out int examCount,
+            bool getExams = true, 
+            bool getStudents = true, 
+            bool getSubjects = true, 
+            bool getCourses = true)
+            {
+                return GetBaseSchoolObjects(out examCount, out int ignore, out ignore, out ignore);
+            }
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            out int examCount,
+            out int studentsCount,
+            bool getExams = true, 
+            bool getStudents = true, 
+            bool getSubjects = true, 
+            bool getCourses = true)
+            {
+                return GetBaseSchoolObjects(out examCount, out studentsCount, out int ignore, out ignore);
+            }
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            out int examCount,
+            out int studentsCount,
+            out int subjectsCount,
+            bool getExams = true, 
+            bool getStudents = true, 
+            bool getSubjects = true, 
+            bool getCourses = true)
+            {
+                return GetBaseSchoolObjects(out examCount, out studentsCount, out subjectsCount, out int ignore);
+            }
+
+        // The code above is horrible, it's just for general knowledge.
+
         // By setting all the parameters in the method's definition, they become optional parameters.
         // Because they have a default value.
         // All default parameters must be at the end of the parameters list
