@@ -32,36 +32,45 @@ namespace CoreSchool
         
         // By setting all the parameters in the method's definition, they become optional parameters.
         // Because they have a default value.
-        public (List<BaseSchoolObject>, int) GetBaseSchoolObjects(
+        // All default parameters must be at the end of the parameters list
+        public List<BaseSchoolObject> GetBaseSchoolObjects(
+            out int examCount, 
+            out int studentsCount, 
+            out int subjectsCount, 
+            out int coursesCount, 
             bool getExams = true, 
             bool getStudents = true, 
             bool getSubjects = true, 
             bool getCourses = true)
         {
-            int examnCount = 0;
+            examCount = studentsCount = subjectsCount = coursesCount = 0;
+    
             var objectList = new List<BaseSchoolObject>();
             objectList.Add(School);
 
             if(getCourses)
                 objectList.AddRange(School.courses);
+                coursesCount += School.courses.Count;
 
             foreach (Course course in School.courses)
             {
                 if(getSubjects)
                     objectList.AddRange(course.subjects);
+                    subjectsCount += course.subjects.Count;
                 if(getStudents)
                     objectList.AddRange(course.students);
+                    studentsCount += course.students.Count;
 
                 if(getExams)
                 {
                     foreach (var subject in course.subjects)
                     {
                         objectList.AddRange(subject.exams);
-                        examnCount += subject.exams.Count;
+                        examCount += subject.exams.Count;
                     }
                 }
             }
-            return (objectList, examnCount);
+            return objectList;
         }
 
         #region Data generation methods

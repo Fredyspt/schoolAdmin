@@ -17,7 +17,14 @@ namespace CoreSchool
         
             print_school_courses(engine.School);
 
-            var objectList = engine.GetBaseSchoolObjects(getExams: false);
+            // We must enter one output variable for each output parameter that we declared in the method.
+            int ignore = 0;
+            var objectList = engine.GetBaseSchoolObjects(
+                out int examCount,
+                out ignore, 
+                out ignore, 
+                out ignore
+            );
 
             //engine.School.ClearData();
 
