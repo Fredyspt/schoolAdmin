@@ -123,6 +123,22 @@ namespace CoreSchool
             }
             return objectList.AsReadOnly();
         }
+        
+        // To be able to add multiple values to one key, we can set the value type to
+        // IEnumerable, so that we can add any kind of generic list to a single key.
+        // Since School is not a list, only BaseSchoolObject, we can create a list
+        // containing only the school.
+        // If by some reason the compiler cannot converts an object to its father's
+        // type, knowing that that object inherited from its father, we can force a cast
+        // like this -> dictionary.Add("Courses", School.courses.Cast<BaseSchoolObject>());
+        public Dictionary<string, IEnumerable<BaseSchoolObject>> GetObjectDictionary()
+        {
+            var dictionary = new Dictionary<string, IEnumerable<BaseSchoolObject>>();
+            dictionary.Add("School", new List<BaseSchoolObject> {School});
+            dictionary.Add("Courses", School.courses);
+
+            return dictionary;
+        }
 
         #region Data generation methods
         private void LoadExams()
