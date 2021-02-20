@@ -123,7 +123,7 @@ namespace CoreSchool
             }
             return objectList.AsReadOnly();
         }
-        
+        #region Dictionary comments
         // To be able to add multiple values to one key, we can set the value type to
         // IEnumerable, so that we can add any kind of generic list to a single key.
         // Since School is not a list, only BaseSchoolObject, we can create a list
@@ -131,11 +131,16 @@ namespace CoreSchool
         // If by some reason the compiler cannot converts an object to its father's
         // type, knowing that that object inherited from its father, we can force a cast
         // like this -> dictionary.Add("Courses", School.courses.Cast<BaseSchoolObject>());
-        public Dictionary<string, IEnumerable<BaseSchoolObject>> GetObjectDictionary()
+
+        // To avoid any typo when adding values to dictionary keys, we can create an enum
+        // Containing all the possible key names so that it's less likely to make a typo
+        // and we must set our TKey value to the enum type, in this case it's DictionaryKey
+        #endregion
+        public Dictionary<DictionaryKey, IEnumerable<BaseSchoolObject>> GetObjectDictionary()
         {
-            var dictionary = new Dictionary<string, IEnumerable<BaseSchoolObject>>();
-            dictionary.Add("School", new List<BaseSchoolObject> {School});
-            dictionary.Add("Courses", School.courses);
+            var dictionary = new Dictionary<DictionaryKey, IEnumerable<BaseSchoolObject>>();
+            dictionary.Add(DictionaryKey.School, new List<BaseSchoolObject> {School});
+            dictionary.Add(DictionaryKey.Course, School.courses);
 
             return dictionary;
         }
