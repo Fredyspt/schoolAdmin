@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CoreSchool.App;
 using CoreSchool.entities;
 using CoreSchool.Utilities;
 using static System.Console;
@@ -11,33 +12,21 @@ namespace CoreSchool
     {
         static void Main(string[] args)
         {
-            
+            AppDomain.CurrentDomain.ProcessExit += EventAction;
+
             var engine =  new SchoolEngine();
             engine.Initialize();
-        
-            print_school_courses(engine.School);
 
-            Dictionary<int, string> dictionary = new Dictionary<int, string>();
-            dictionary.Add(10, "Hola");
-            dictionary.Add(23, "Lorem Ipsum");
+            var dictionary = engine.GetObjectDictionary();
 
-            foreach (var keyValPair in dictionary)
-            {
-                WriteLine($"Key: {keyValPair.Key}, Value: {keyValPair.Value}");
-            }
-
+            engine.PrintDictionary(dictionary, true);
         }
 
-        public static void print_school_courses(School school)
+        private static void EventAction(object sender, EventArgs e)
         {
-            Printer.PrintTitle("School Courses");
-
-            // ? verifies the object (if it is != null) before verifying the attribute.
-            if(school?.courses == null) return;
-            foreach (var course in school.courses)
-            {
-                WriteLine($"Name: {course.name}, ID: {course.uniqueID}");
-            }
+            Printer.PrintTitle("Exiting...");
+            Printer.Beep(500, 150, 3);
+            Printer.PrintTitle("Exited successfully");
         }
     }
 }

@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CoreSchool.entities;
+using CoreSchool.Utilities;
 
-namespace CoreSchool
+namespace CoreSchool.App
 {
     // Sealed doesn't let any class to inherit from SchoolEngine, only allows to create objects.
     public sealed class SchoolEngine
@@ -142,7 +143,75 @@ namespace CoreSchool
             dictionary.Add(DictionaryKey.School, new List<BaseSchoolObject> {School});
             dictionary.Add(DictionaryKey.Course, School.courses);
 
+            var subjectList = new List<Subject>();
+            var studentList = new List<Student>();
+            var examList = new List<Exam>();
+
+            foreach (var course in School.courses)
+            {
+                subjectList.AddRange(course.subjects);
+                studentList.AddRange(course.students);
+                foreach (var student in course.students)
+                {
+                    examList.AddRange(student.exams);
+                }
+            }
+
+            dictionary.Add(DictionaryKey.Subject, subjectList);  
+            dictionary.Add(DictionaryKey.Student, studentList);  
+            dictionary.Add(DictionaryKey.Exam, examList);  
             return dictionary;
+        }
+
+        // The dictionary has 5 objects in the type of IEnumerable,
+        // To print each Key with its values, we need to print the
+        // object's key, then print each value of the IEnumerable which
+        // it's the object's value.
+        public void PrintDictionary(Dictionary<DictionaryKey, IEnumerable<BaseSchoolObject>> dictionary,
+            bool pritnExam = false)
+        {
+            foreach (var obj in dictionary)
+            {
+                Printer.PrintTitle(obj.Key.ToString());
+
+                foreach (var value in obj.Value)
+                {
+                    switch(obj.Key)
+                    {
+                        case DictionaryKey.Exam:
+                            if(pritnExam)
+                                Console.WriteLine(value);  
+                            break;
+
+                        case DictionaryKey.School:
+                            Console.WriteLine("School " + value);
+                            break;
+
+                        case DictionaryKey.Student:
+                            Console.WriteLine("Student: " + value);
+                            break;
+
+                        case DictionaryKey.Course:
+                            var tmpCourse = value as Course;
+                            if(tmpCourse != null)
+                            {
+                                int count = tmpCourse.students.Count;
+                                Console.WriteLine($"Course {tmpCourse.name} Number of students: {count}");
+                            }
+                            
+                            break;
+
+                        case DictionaryKey.Subject:
+                            Console.WriteLine("Subject: " + value);
+                            break;
+                        
+                        default:
+                            Console.WriteLine(value);
+                            break;
+                    }
+                    
+                }
+            }
         }
 
         #region Data generation methods
@@ -162,7 +231,7 @@ namespace CoreSchool
                                     examSubject = subject,
                                     name = $"{subject.name} Quiz {i+1}",
                                     testedStudent = student,
-                                    grade = (double)(random.NextDouble()*5)
+                                    grade = Math.Round((random.NextDouble()*5), 2)
                                 };
                             // Add each exam to the student
                             student.exams.Add(exam);
@@ -180,11 +249,11 @@ namespace CoreSchool
             foreach (var course in School.courses)
             {
                 var subjectList = new List<Subject>(){
-                    new Subject{name = "Math"},
-                    new Subject{name = "Physics"},
-                    new Subject{name = "Language"},
-                    new Subject{name = "P.E."},
-                    new Subject{name = "Biology"}
+                    new Subject{name = $"Math {course.name}"},
+                    new Subject{name = $"Physics {course.name}"},
+                    new Subject{name = $"Language {course.name}"},
+                    new Subject{name = $"P.E. {course.name}"},
+                    new Subject{name = $"Biology {course.name}"}
                 };
                 course.subjects = subjectList;
             }

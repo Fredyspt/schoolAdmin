@@ -16,5 +16,13 @@ namespace CoreSchool.Utilities
             WriteLine($"| {title} |");
             PrintLine(size);
         }
+
+        public static void Beep(int hz, int duration, int quantity)
+        {
+            for(int i = 0; i < quantity; i++)
+            {
+                System.Console.Beep(hz, duration);
+            }
+        }
     }
 }
