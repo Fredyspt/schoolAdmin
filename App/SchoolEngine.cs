@@ -25,12 +25,9 @@ namespace CoreSchool.App
 
             LoadCourses();
             LoadSubjects();
-            
             LoadExams();
-
-            
         }
-        
+        #region GetSchoolObjects with lists
         // This is a non efficient way to avoid the need to write every output parameter when
         // using the method. This way, we can type only the default parameters without any 
         // output parameter, but if we want to type only 1 output parameter, we must create 
@@ -124,6 +121,9 @@ namespace CoreSchool.App
             }
             return objectList.AsReadOnly();
         }
+
+        #endregion
+        
         #region Dictionary comments
         // To be able to add multiple values to one key, we can set the value type to
         // IEnumerable, so that we can add any kind of generic list to a single key.

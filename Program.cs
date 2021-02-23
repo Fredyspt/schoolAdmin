@@ -17,9 +17,10 @@ namespace CoreSchool
             var engine =  new SchoolEngine();
             engine.Initialize();
 
-            var dictionary = engine.GetObjectDictionary();
-
-            engine.PrintDictionary(dictionary, true);
+            var reporter = new Reporter(engine.GetObjectDictionary());
+            var examList = reporter.GetExamList();
+            var subjectLsit = reporter.GetSubjectList();
+            var subjectExams = reporter.GetSubjectExams();
         }
 
         private static void EventAction(object sender, EventArgs e)
