@@ -231,7 +231,7 @@ namespace CoreSchool.App
                                     examSubject = subject,
                                     name = $"{subject.name} Quiz {i+1}",
                                     testedStudent = student,
-                                    grade = Math.Round((random.NextDouble()*5), 2)
+                                    grade = MathF.Round((float)(random.NextDouble()*5), 2)
                                 };
                             // Add each exam to the student
                             student.exams.Add(exam);

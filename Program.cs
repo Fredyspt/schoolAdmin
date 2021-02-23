@@ -21,6 +21,8 @@ namespace CoreSchool
             var examList = reporter.GetExamList();
             var subjectLsit = reporter.GetSubjectList();
             var subjectExams = reporter.GetSubjectExams();
+            var studentGrades = reporter.AvgStudentGradeBySubject();
+            var topGrades = reporter.GetBestGrades(3);
         }
 
         private static void EventAction(object sender, EventArgs e)

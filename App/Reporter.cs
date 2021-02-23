@@ -67,9 +67,9 @@ namespace CoreSchool.App
 
         }
 
-        public Dictionary<string, IEnumerable<object>> AvgStudentGradeBySubject()
+        public Dictionary<string, IEnumerable<StudentAvg>> AvgStudentGradeBySubject()
         {
-            var response = new Dictionary<string, IEnumerable<object>>();
+            var response = new Dictionary<string, IEnumerable<StudentAvg>>();
             var subjectExams = GetSubjectExams();
 
             foreach (var subject in subjectExams)
@@ -77,15 +77,42 @@ namespace CoreSchool.App
                 // subject contains a Key (subject name in string) and a Value
                 // (IEnumerable<Exam>) containing exams, we need to traverse 
                 // the exam list so it's the value of each key.
-                var group = from exam in subject.Value  
-                            select new                      //to select multiple objects in a query
-                            {                               //we can create an anonymous object
-                                exam.examSubject.name, 
-                                exam.grade
-                            };
+                var averageStudentGrade = from exam in subject.Value  
+                                          group exam by new {exam.testedStudent.uniqueID,
+                                                             exam.testedStudent.name}
+                                          into studentExams
+                                          // to select multiple objects in a query
+                                          // we can create an anonymous object
+                                          select new StudentAvg                          
+                                          {                                     
+                                              // Since we grouped exams by Students uniqueID
+                                              // the uniqueID became the key and exams the value
+                                              // for each object in the group.
+                                              studentID = studentExams.Key.uniqueID,
+                                              studentName = studentExams.Key.name,
+                                              average = studentExams.Average(test => test.grade)
+                                          };
+                response.Add(subject.Key, averageStudentGrade);
             }
 
             return response;
+        }
+
+        public Dictionary<string, IEnumerable<StudentAvg>> GetBestGrades (int topSelect)
+        {
+            var topGradesPerSubject = new Dictionary<string, IEnumerable<StudentAvg>>();
+            var gradesPerSubject = AvgStudentGradeBySubject();
+
+            foreach (var subject in gradesPerSubject)
+            {
+                var topGrades = (from grade in subject.Value
+                                orderby grade.average descending
+                                select grade);
+
+                topGradesPerSubject.Add(subject.Key, topGrades.Take(topSelect));
+            }
+
+            return topGradesPerSubject;
         }
         
     }
