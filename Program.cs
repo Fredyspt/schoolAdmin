@@ -18,62 +18,52 @@ namespace CoreSchool
             engine.Initialize();
 
             var reporter = new Reporter(engine.GetObjectDictionary());
-            var examList = reporter.GetExamList();
-            var subjectLsit = reporter.GetSubjectList();
-            var subjectExams = reporter.GetSubjectExams();
-            var studentGrades = reporter.AvgStudentGradeBySubject();
-            var topGrades = reporter.GetBestGrades(3);
+            
+            Printer.PrintTitle("Welcome to the school administrator");
+            bool exit = false;
+            while(!exit)
+            {   
+                WriteLine("Type the number of the report you want to read.");
+                Printer.PrintLine(20);
+                WriteLine("[1] Exam list");
+                WriteLine("[2] Subject list");
+                WriteLine("[3] Subject exams");
+                WriteLine("[4] Student grades");
+                WriteLine("[5] Top grades");
+                WriteLine("[6] Exit");
+                Printer.PrintLine(20);
 
-            Printer.PrintTitle("Exam input on console");
-            var newExam = new Exam();
-            string name, gradeString;
-            float grade;
-
-            WriteLine("Enter exam name");
-            Printer.PressEnter();
-            name = Console.ReadLine();
-
-            if(string.IsNullOrWhiteSpace(name))
-            {
-                Printer.PrintTitle("Name cannot be null or empty.");
-            } else
-            {
-                newExam.name = name.ToLower();
-                WriteLine("Name saved\n");
-            }
-
-            WriteLine("Enter exam grade");
-            Printer.PressEnter();
-            gradeString = Console.ReadLine();
-
-            if(string.IsNullOrWhiteSpace(gradeString))
-            {
-                Printer.PrintTitle("Grade cannot be null or empty.");
-            } else
-            {
-                // try: in this case, tries to convert the string to float if the input is 
-                // in the correct form (4.5, 3.2, etc.), if it fails, catch will throw an
-                // exception. If there are multiple exceptions, the exceptions order matters
-                // when throwing an error.            
-                try
+                string choice = Console.ReadLine();
+                switch(choice)
                 {
-                    newExam.grade = float.Parse(gradeString);
-                    if(newExam.grade < 0.0f || newExam.grade > 5.0f)
-                    {
-                        throw new ArgumentOutOfRangeException("Grade must be a value between 0 and 5");
-                    }
-                    WriteLine("Grade saved");
-                } catch(ArgumentOutOfRangeException outOfRange)
-                {
-                    Printer.PrintTitle(outOfRange.Message);
-                } catch(Exception)
-                {
-                    Printer.PrintTitle("Invalid number");
-                } finally
-                {
-                    Printer.PrintTitle("FINALLY");
+                    case "1":
+                        var examList = reporter.GetExamList();
+                        reporter.PrintExams();
+                        break;
+
+                    case "2":
+                        var subjectLsit = reporter.GetSubjectList();
+                        break;
+
+                    case "3":
+                        var subjectExams = reporter.GetSubjectExams();
+                        break;
+
+                    case "4":
+                        var studentGrades = reporter.AvgStudentGradeBySubject();
+                        break;
+
+                    case "5":
+                        var topGrades = reporter.GetBestGrades(3);
+                        break;
+
+                    case "6":
+                        exit = true;
+                        break;
+
+                    default:
+                        break;
                 }
-                
             }
         }
 

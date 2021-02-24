@@ -114,6 +114,25 @@ namespace CoreSchool.App
 
             return topGradesPerSubject;
         }
-        
+
+        public void PrintExams()
+        {
+            var subjectExams = GetSubjectExams();
+            Console.WriteLine("From which subject would you like to print the exams?");
+            int subjectNumber = 0;
+            foreach (var subject in subjectExams)
+            {
+                Console.WriteLine($"[{subjectNumber}] {subject.Key}");
+                subjectNumber++;
+            }
+
+            int choice = int.Parse(Console.ReadLine());
+            var exams = subjectExams.ElementAt(choice);
+
+            foreach (var exam in exams.Value)
+            {
+                Console.WriteLine(exam);
+            }
+        }
     }
 }
