@@ -24,5 +24,10 @@ namespace CoreSchool.Utilities
                 System.Console.Beep(hz, duration);
             }
         }
+
+        public static void PressEnter()
+        {
+            WriteLine("Press ENTER to continue...");
+        }
     }
 }
