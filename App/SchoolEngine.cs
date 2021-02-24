@@ -137,6 +137,8 @@ namespace CoreSchool.App
         // Containing all the possible key names so that it's less likely to make a typo
         // and we must set our TKey value to the enum type, in this case it's DictionaryKey
         #endregion
+        
+        #region Dictionary methods
         public Dictionary<DictionaryKey, IEnumerable<BaseSchoolObject>> GetObjectDictionary()
         {
             var dictionary = new Dictionary<DictionaryKey, IEnumerable<BaseSchoolObject>>();
@@ -213,6 +215,8 @@ namespace CoreSchool.App
                 }
             }
         }
+
+        #endregion
 
         #region Data generation methods
         private void LoadExams()

@@ -27,37 +27,31 @@ namespace CoreSchool
                 Printer.PrintLine(20);
                 WriteLine("[1] Exam list");
                 WriteLine("[2] Subject list");
-                WriteLine("[3] Subject exams");
-                WriteLine("[4] Student grades");
-                WriteLine("[5] Top grades");
-                WriteLine("[6] Exit");
+                WriteLine("[3] Student grades");
+                WriteLine("[4] Top grades");
+                WriteLine("[5] Exit");
                 Printer.PrintLine(20);
 
                 string choice = Console.ReadLine();
                 switch(choice)
                 {
                     case "1":
-                        var examList = reporter.GetExamList();
                         reporter.PrintExams();
                         break;
 
                     case "2":
-                        var subjectLsit = reporter.GetSubjectList();
+                        reporter.PrintSubjectList();
                         break;
 
                     case "3":
-                        var subjectExams = reporter.GetSubjectExams();
+                        reporter.PrintStudentGrades();
                         break;
 
                     case "4":
-                        var studentGrades = reporter.AvgStudentGradeBySubject();
+                        reporter.PrintTopGrades();
                         break;
 
                     case "5":
-                        var topGrades = reporter.GetBestGrades(3);
-                        break;
-
-                    case "6":
                         exit = true;
                         break;
 

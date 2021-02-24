@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using CoreSchool.entities;
+using CoreSchool.Utilities;
 
 namespace CoreSchool.App
 {
@@ -16,6 +17,7 @@ namespace CoreSchool.App
             _objectsDictionary = objectsDictionary;
         }
 
+        #region Get methods
         // TryGetValue gets the value associated with the correspondent key, it returns true if it could
         // get the value, or false if couldn't. If true, it has an output parameter to return the value, 
         // in this case, it's an IEnumerable<BaseSchoolObject> containing all the schools available.
@@ -115,23 +117,79 @@ namespace CoreSchool.App
             return topGradesPerSubject;
         }
 
+        #endregion
         public void PrintExams()
         {
             var subjectExams = GetSubjectExams();
-            Console.WriteLine("From which subject would you like to print the exams?");
-            int subjectNumber = 0;
-            foreach (var subject in subjectExams)
-            {
-                Console.WriteLine($"[{subjectNumber}] {subject.Key}");
-                subjectNumber++;
-            }
 
+            Printer.PrintTitle("From which subject would you like to print the exams?");
+            listSubjects();
             int choice = int.Parse(Console.ReadLine());
             var exams = subjectExams.ElementAt(choice);
+
+            Printer.PrintTitle(exams.Key);
 
             foreach (var exam in exams.Value)
             {
                 Console.WriteLine(exam);
+            }
+        }
+        
+        public void PrintSubjectList()
+        {
+            var subjectList = GetSubjectList();
+
+            foreach (var subject in subjectList)
+            {
+                Console.WriteLine(subject);
+            }
+        }
+
+        public void PrintStudentGrades()
+        {
+            var gradesBySubject = AvgStudentGradeBySubject();
+
+            Printer.PrintTitle("From which subject would you like to print the grade average?");
+            listSubjects();
+
+            int choice = int.Parse(Console.ReadLine());
+            var subjectAverages = gradesBySubject.ElementAt(choice);
+
+            Printer.PrintTitle(subjectAverages.Key);
+
+            foreach (var grade in subjectAverages.Value)
+            {
+                Console.WriteLine($"Student: {grade.studentName}, Average: {grade.average}");
+            }
+        }
+
+        public void PrintTopGrades()
+        {
+            Printer.PrintTitle("From which subject would you like to print the grade average?");
+            listSubjects();
+            int choice = int.Parse(Console.ReadLine());
+
+            Printer.PrintTitle("Select the Top # grades you want to see");
+            int topSelection = int.Parse(Console.ReadLine());
+            var subjectList = GetBestGrades(topSelection);
+            var subjectTopGrades = subjectList.ElementAt(choice);
+
+            Printer.PrintTitle($"{subjectTopGrades.Key} Top {topSelection} averages");
+
+            foreach (var topGrade in subjectTopGrades.Value)
+            {
+                Console.WriteLine($"Student: {topGrade.studentName}, Grade: {topGrade.average}");
+            }
+        }
+
+        public void listSubjects()
+        {
+            var subjectList = GetSubjectExams();
+            int subjectNumber = 0;
+            foreach (var subject in subjectList)
+            {
+                Console.WriteLine($"[{subjectNumber}] {subject.Key}");
+                subjectNumber++;
             }
         }
     }
